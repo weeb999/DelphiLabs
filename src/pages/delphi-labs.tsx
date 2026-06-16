@@ -3,11 +3,11 @@ import Head from 'next/head'
 
 const DelphiLabsComp = dynamic(() => import('../../delphi-labs.jsx'), { ssr: false })
 
-export default function Home() {
+export default function DelphiLabsPage() {
   return (
     <>
       <Head>
-        <title>Delphi Labs — Home</title>
+        <title>Delphi Labs</title>
         <meta name="description" content="Delphi Labs — workshops and training" />
       </Head>
       <DelphiLabsComp />

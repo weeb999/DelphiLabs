@@ -36,10 +36,6 @@ export default function Programs() {
   return (
     <>
       <Head><title>Programs — Delphi</title></Head>
-      <nav className="flex justify-between items-center px-8 py-4 border-b border-gray-100">
-        <Link href="/" className="text-xl font-semibold tracking-tight">Del<span className="text-brand-600">phi</span></Link>
-        <Link href="/dashboard" className="text-sm bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-800 transition-colors">Dashboard →</Link>
-      </nav>
 
       <main className="max-w-5xl mx-auto px-8 py-12">
         <h1 className="text-3xl font-semibold mb-2">Browse programs</h1>
