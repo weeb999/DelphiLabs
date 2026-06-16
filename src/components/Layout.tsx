@@ -1,21 +1,28 @@
 import Link from 'next/link'
 import { ReactNode } from 'react'
+import { useRouter } from 'next/router'
 
 type Props = { children: ReactNode }
 
 export default function Layout({ children }: Props) {
+  const router = useRouter()
+  const hideHeaderOn = ['/', '/delphi-labs']
+  const hideHeader = hideHeaderOn.includes(router.pathname)
+
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200/50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold tracking-tight text-slate-900">Del<span className="text-brand-500">phi</span></Link>
-          <nav className="flex items-center gap-4 text-sm font-medium">
-            <Link href="/programs" className="hover:text-brand-600 transition-colors">Programs</Link>
-            <Link href="/delphi-labs" className="hover:text-brand-600 transition-colors">Delphi Labs</Link>
-            <a href="#contact" className="bg-brand-500 text-white px-4 py-2 rounded-full text-sm">Get a demo</a>
-          </nav>
-        </div>
-      </header>
+      {!hideHeader && (
+        <header className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200/50">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/" className="text-2xl font-bold tracking-tight text-slate-900">Del<span className="text-brand-500">phi</span></Link>
+            <nav className="flex items-center gap-4 text-sm font-medium">
+              <Link href="/programs" className="hover:text-brand-600 transition-colors">Programs</Link>
+              <Link href="/delphi-labs" className="hover:text-brand-600 transition-colors">Delphi Labs</Link>
+              <a href="#contact" className="bg-brand-500 text-white px-4 py-2 rounded-full text-sm">Get a demo</a>
+            </nav>
+          </div>
+        </header>
+      )}
 
       <main className="flex-1">{children}</main>
 
