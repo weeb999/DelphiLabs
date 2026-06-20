@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import Image from 'next/image'
+import logo from './Logo delphi PNG.png'
 
 /* ════════════════════════════════════════
    NEURAL CANVAS — hero background
@@ -83,12 +85,12 @@ const Ico = {
    DATA
 ════════════════════════════════════════ */
 const PROGRAMS = [
-  { cat:"AI & Machine Learning", icon:"ai",    accent:"#3B82F6", light:"#BFDBFE", name:"Prompt Engineering for Students", type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
-  { cat:"AI & Machine Learning", icon:"ai",    accent:"#3B82F6", light:"#BFDBFE", name:"Gen-AI Foundational Workshop",   type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
-  { cat:"Robotics & IoT",        icon:"robot", accent:"#06B6D4", light:"#A5F3FC", name:"Robotics — IoT Foundations",     type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
-  { cat:"Soft Skills",           icon:"people",accent:"#8B5CF6", light:"#DDD6FE", name:"Corporate Compass",              type:"Training Program", hrs:"15 hrs", price:"₹3,000" },
-  { cat:"Soft Skills",           icon:"people",accent:"#8B5CF6", light:"#DDD6FE", name:"Resume Building Workshop",        type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
-  { cat:"Aptitude",              icon:"chart", accent:"#10B981", light:"#A7F3D0", name:"AptiSprint",                     type:"Training Program", hrs:"15 hrs", price:"₹3,000" },
+  { cat:"AI & Machine Learning", icon:"ai",    accent:"#475569", light:"#E6E9EF", name:"Prompt Engineering for Students", type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
+  { cat:"AI & Machine Learning", icon:"ai",    accent:"#475569", light:"#E6E9EF", name:"Gen-AI Foundational Workshop",   type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
+  { cat:"Robotics & IoT",        icon:"robot", accent:"#475569", light:"#E6E9EF", name:"Robotics — IoT Foundations",     type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
+  { cat:"Soft Skills",           icon:"people",accent:"#475569", light:"#E6E9EF", name:"Corporate Compass",              type:"Training Program", hrs:"15 hrs", price:"₹3,000" },
+  { cat:"Soft Skills",           icon:"people",accent:"#475569", light:"#E6E9EF", name:"Resume Building Workshop",        type:"Workshop",         hrs:"4 hrs",  price:"₹1,000" },
+  { cat:"Aptitude",              icon:"chart", accent:"#475569", light:"#E6E9EF", name:"AptiSprint",                     type:"Training Program", hrs:"15 hrs", price:"₹3,000" },
 ];
 
 const TESTIMONIALS = [
@@ -98,10 +100,10 @@ const TESTIMONIALS = [
 ];
 
 const WHY = [
-  { icon:"🎯", title:"Industry-Oriented",   desc:"Every module mirrors what hiring teams actually test for — not what textbooks cover." },
-  { icon:"⚡", title:"Hands-on First",      desc:"Build, test, and ship. Each session ends with something tangible in your portfolio." },
-  { icon:"🧠", title:"Expert Trainers",     desc:"Learn from practitioners actively working in AI, robotics, and corporate environments." },
-  { icon:"🚀", title:"Career Acceleration", desc:"Leave with a polished resume, interview confidence, and workplace mindset." },
+  { icon: Ico.star, title:"Industry-Oriented",   desc:"Every module mirrors what hiring teams actually test for — not what textbooks cover." },
+  { icon: Ico.check, title:"Hands-on First",      desc:"Build, test, and ship. Each session ends with something tangible in your portfolio." },
+  { icon: Ico.robot, title:"Expert Trainers",     desc:"Learn from practitioners actively working in AI, robotics, and corporate environments." },
+  { icon: Ico.arrow, title:"Career Acceleration", desc:"Leave with a polished resume, interview confidence, and workplace mindset." },
 ];
 
 const BENEFITS = ["Industry Aligned Programs","Placement Readiness Training","Technical Skill Development","Soft Skill Enhancement","Custom Training Programs"];
@@ -114,24 +116,24 @@ const CSS = `
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#060D1F;
-  --surface:#080F22;
-  --card:#0D1730;
-  --raise:#122040;
-  --blue:#2563EB;
-  --blue-bright:#3B82F6;
-  --blue-glow:#60A5FA;
-  --sky:#93C5FD;
+  --ink:#0b1020;
+  --surface:#0b1220;
+  --card:#0f1724;
+  --raise:#111827;
+  --blue:#0f172a; /* muted primary */
+  --blue-bright:#374151; /* muted accent */
+  --blue-glow:rgba(15,23,42,0.06);
+  --sky:#CBD5E1;
   --white:#FFFFFF;
-  --muted:rgba(148,163,184,0.85);
-  --border:rgba(59,130,246,0.12);
-  --border-bright:rgba(96,165,250,0.25);
+  --muted:rgba(255,255,255,0.92);
+  --border:rgba(15,23,42,0.08);
+  --border-bright:rgba(148,163,184,0.12);
   --radius-lg:20px;
   --radius-xl:28px;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::selection{background:rgba(59,130,246,0.35)}
+::selection{background:var(--blue-glow)}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--ink)}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
@@ -143,23 +145,23 @@ body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--white)
 .body{font-size:16px;line-height:1.75;color:var(--muted);font-weight:400}
 
 /* ── Gradients ── */
-.gt{background:linear-gradient(140deg,#fff 20%,#93C5FD 55%,#3B82F6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.gt-blue{background:linear-gradient(130deg,#60A5FA,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt{background:linear-gradient(140deg,#fff 20%,var(--sky) 55%,var(--blue-bright) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt-blue{background:linear-gradient(130deg,var(--blue-glow),var(--blue-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;letter-spacing:-0.01em;border:none;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1);white-space:nowrap}
-.btn-p{padding:13px 26px;border-radius:12px;background:linear-gradient(135deg,#2563EB 0%,#1D4ED8 100%);color:#fff;box-shadow:0 4px 24px rgba(37,99,235,0.45),inset 0 1px 0 rgba(255,255,255,0.12)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(37,99,235,0.6),inset 0 1px 0 rgba(255,255,255,0.15);background:linear-gradient(135deg,#3B82F6 0%,#2563EB 100%)}
-.btn-o{padding:13px 26px;border-radius:12px;background:rgba(59,130,246,0.08);color:var(--sky);border:1px solid rgba(59,130,246,0.28)}
-.btn-o:hover{background:rgba(59,130,246,0.15);border-color:rgba(96,165,250,0.5);transform:translateY(-2px);box-shadow:0 8px 32px rgba(37,99,235,0.2)}
+.btn-p{padding:13px 26px;border-radius:12px;background:linear-gradient(135deg,var(--blue) 0%,var(--blue-bright) 100%);color:#fff;box-shadow:0 4px 24px rgba(15,23,42,0.12),inset 0 1px 0 rgba(255,255,255,0.04)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(15,23,42,0.14),inset 0 1px 0 rgba(255,255,255,0.06);background:linear-gradient(135deg,var(--blue-bright) 0%,var(--blue) 100%)}
+.btn-o{padding:13px 26px;border-radius:12px;background:rgba(15,23,42,0.06);color:var(--sky);border:1px solid rgba(15,23,42,0.08)}
+.btn-o:hover{background:rgba(15,23,42,0.08);border-color:var(--border-bright);transform:translateY(-2px);box-shadow:0 8px 32px rgba(15,23,42,0.06)}
 .btn-sm{padding:10px 20px;font-size:13px;border-radius:10px}
 
 /* ── Pill label ── */
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.22);padding:5px 14px;border-radius:100px;margin-bottom:22px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sky);background:rgba(15,23,42,0.04);border:1px solid var(--border);padding:5px 14px;border-radius:100px;margin-bottom:22px}
 
 /* ── Glass card ── */
-.glass{background:rgba(13,23,48,0.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border)}
-.glass-hi{background:rgba(13,23,48,0.85);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--border-bright)}
+.glass{background:rgba(13,23,48,0.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border)}
+.glass-hi{background:rgba(13,23,48,0.88);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--border-bright)}
 
 /* ── Nav ── */
 .nav-link{color:rgba(203,213,225,0.7);font-size:14px;font-weight:500;text-decoration:none;transition:color .18s;cursor:pointer;letter-spacing:-0.005em}
@@ -171,10 +173,10 @@ body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--white)
 
 /* ── Feature cards ── */
 .feat-card{transition:transform .28s,border-color .28s}
-.feat-card:hover{transform:translateY(-5px);border-color:rgba(96,165,250,0.3) !important}
+.feat-card:hover{transform:translateY(-5px);border-color:rgba(148,163,184,0.08) !important}
 
 /* ── Grid bg ── */
-.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.05) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 0%,transparent 100%)}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(15,23,42,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.03) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 0%,transparent 100%)}
 
 /* ── Glow orbs ── */
 .orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
@@ -183,8 +185,8 @@ body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--white)
 .divider{border:none;border-top:1px solid var(--border);margin:0}
 
 /* ── Input ── */
-.field{width:100%;padding:13px 16px;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.15);border-radius:11px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;outline:none;transition:border-color .2s,background .2s}
-.field:focus{border-color:rgba(96,165,250,0.55);background:rgba(59,130,246,0.08)}
+.field{width:100%;padding:13px 16px;background:rgba(15,23,42,0.04);border:1px solid rgba(15,23,42,0.06);border-radius:11px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;outline:none;transition:border-color .2s,background .2s}
+.field:focus{border-color:var(--border-bright);background:rgba(15,23,42,0.06)}
 .field::placeholder{color:rgba(148,163,184,0.4)}
 
 /* ── Scroll animation ── */
@@ -241,14 +243,16 @@ export default function DelphiLabs() {
         background: nav ? "rgba(6,13,31,0.88)" : "transparent",
         backdropFilter: nav ? "blur(24px)" : "none",
         WebkitBackdropFilter: nav ? "blur(24px)" : "none",
-        borderBottom: nav ? "1px solid rgba(59,130,246,0.12)" : "none",
+        borderBottom: nav ? "1px solid var(--border)" : "none",
         transition:"all .3s",
       }}>
         <div style={{ maxWidth:1240,margin:"0 auto",display:"flex",alignItems:"center",justifyContent:"space-between",height:70 }}>
           {/* Logo */}
           <div style={{ display:"flex",alignItems:"center",gap:11,cursor:"pointer" }} onClick={() => go("hero")}>
-            <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#2563EB,#60A5FA)",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:16,letterSpacing:"-0.03em",boxShadow:"0 0 20px rgba(37,99,235,0.5)" }}>D</div>
-            <span style={{ fontWeight:800,fontSize:15,letterSpacing:"-0.025em" }}>DELPHI<span style={{ color:"#60A5FA" }}>.</span>LABS</span>
+            <div style={{ width:36,height:36,borderRadius:10,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 20px rgba(15,23,42,0.12)", background: 'transparent' }}>
+              <Image src={logo} alt="Delphi Labs" width={36} height={36} style={{ objectFit: 'cover', transform: 'scale(1.12)' }} />
+            </div>
+            <span style={{ fontWeight:800,fontSize:15,letterSpacing:"-0.025em" }}>DELPHI<span style={{ color:"var(--blue-bright)" }}>.</span>LABS</span>
           </div>
           {/* Desktop links */}
           <div className="desk-nav" style={{ display:"flex",alignItems:"center",gap:36 }}>
@@ -261,7 +265,7 @@ export default function DelphiLabs() {
             <button className="btn btn-p btn-sm" onClick={() => go("programs")}>Explore Programs</button>
           </div>
           {/* Mobile */}
-          <button className="mob-btn" style={{ display:"none",background:"none",border:"1px solid rgba(59,130,246,0.25)",borderRadius:9,padding:"7px 9px",color:"var(--sky)",cursor:"pointer",alignItems:"center" }} onClick={() => setMenu(!menu)}>
+          <button className="mob-btn" style={{ display:"none",background:"none",border:"1px solid var(--border)",borderRadius:9,padding:"7px 9px",color:"var(--sky)",cursor:"pointer",alignItems:"center" }} onClick={() => setMenu(!menu)}>
             {menu ? Ico.x : Ico.menu}
           </button>
         </div>
@@ -280,11 +284,11 @@ export default function DelphiLabs() {
         <div className="grid-bg" />
         <NeuralCanvas />
         {/* Orbs */}
-        <div className="orb" style={{ width:700,height:700,background:"rgba(37,99,235,0.18)",top:"-15%",left:"40%",transform:"translateX(-50%)" }} />
-        <div className="orb" style={{ width:500,height:500,background:"rgba(96,165,250,0.1)",bottom:"-10%",right:"-5%" }} />
-        <div className="orb" style={{ width:300,height:300,background:"rgba(37,99,235,0.12)",bottom:"20%",left:"-5%" }} />
+        <div className="orb" style={{ width:700,height:700,background:"rgba(15,23,42,0.06)",top:"-15%",left:"40%",transform:"translateX(-50%)" }} />
+        <div className="orb" style={{ width:500,height:500,background:"rgba(15,23,42,0.04)",bottom:"-10%",right:"-5%" }} />
+        <div className="orb" style={{ width:300,height:300,background:"rgba(15,23,42,0.03)",bottom:"20%",left:"-5%" }} />
         {/* Horizontal shimmer line */}
-        <div style={{ position:"absolute",top:"38%",left:0,right:0,height:1,background:"linear-gradient(90deg,transparent,rgba(96,165,250,0.2),rgba(59,130,246,0.4),rgba(96,165,250,0.2),transparent)",pointerEvents:"none" }} />
+        <div style={{ position:"absolute",top:"38%",left:0,right:0,height:1,background:"linear-gradient(90deg,transparent,rgba(15,23,42,0.06),rgba(15,23,42,0.12),rgba(15,23,42,0.06),transparent)",pointerEvents:"none" }} />
 
         <div style={{ position:"relative",zIndex:2,maxWidth:1240,margin:"0 auto",padding:"0 32px",width:"100%" }}>
           <div style={{ maxWidth:820 }}>
@@ -317,7 +321,7 @@ export default function DelphiLabs() {
               { v:"Hands-on", l:"Learning Experience" },
               { v:"Career",   l:"Focused Programs" },
             ].map((s,i) => (
-              <div key={i} className="glass" style={{ borderRadius:16,padding:"22px 24px",textAlign:"center",borderColor:"rgba(59,130,246,0.15)" }}>
+              <div key={i} className="glass" style={{ borderRadius:16,padding:"22px 24px",textAlign:"center",borderColor:"var(--border)" }}>
                 <div style={{ fontSize:26,fontWeight:900,letterSpacing:"-0.04em",marginBottom:6 }} className="gt-blue">{s.v}</div>
                 <div style={{ fontSize:12,color:"var(--muted)",fontWeight:500,letterSpacing:"0.01em" }}>{s.l}</div>
               </div>
@@ -342,15 +346,15 @@ export default function DelphiLabs() {
             </p>
             <button className="btn btn-p btn-sm" onClick={() => go("programs")}>See All Programs {Ico.arrow}</button>
           </div>
-          <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:14 }}>
+            <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:14 }}>
             {[
-              { e:"🤖",t:"AI & Robotics",      d:"Cutting-edge technology workshops" },
-              { e:"💬",t:"Soft Skills",         d:"Communication & workplace readiness" },
-              { e:"📊",t:"Aptitude",            d:"Analytical & quantitative training" },
-              { e:"🎯",t:"Career Development",  d:"Resume, interviews & placement prep" },
+              { icon: Ico.robot, t:"AI & Robotics",      d:"Cutting-edge technology workshops" },
+              { icon: Ico.people, t:"Soft Skills",         d:"Communication & workplace readiness" },
+              { icon: Ico.chart, t:"Aptitude",            d:"Analytical & quantitative training" },
+              { icon: Ico.star, t:"Career Development",  d:"Resume, interviews & placement prep" },
             ].map(c => (
               <div key={c.t} className="glass feat-card" style={{ padding:26,borderRadius:18,border:"1px solid var(--border)" }}>
-                <div style={{ fontSize:30,marginBottom:14,lineHeight:1 }}>{c.e}</div>
+                <div style={{ fontSize:22,marginBottom:14,lineHeight:1, color: 'var(--blue-bright)' }}>{c.icon}</div>
                 <div style={{ fontWeight:700,fontSize:14,marginBottom:6,letterSpacing:"-0.01em" }}>{c.t}</div>
                 <div style={{ fontSize:12,color:"var(--muted)",lineHeight:1.6 }}>{c.d}</div>
               </div>
@@ -373,11 +377,11 @@ export default function DelphiLabs() {
             {PROGRAMS.map((p,i) => (
               <div key={i} className="glass prog-card" style={{
                 borderRadius:22,padding:30,
-                border:"1px solid rgba(59,130,246,0.13)",
+                border:"1px solid var(--border)",
                 position:"relative",overflow:"hidden",
               }}
-              onMouseEnter={e=>{e.currentTarget.style.boxShadow=`0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px ${p.accent}40`;e.currentTarget.style.borderColor=`${p.accent}40`}}
-              onMouseLeave={e=>{e.currentTarget.style.boxShadow="";e.currentTarget.style.borderColor="rgba(59,130,246,0.13)"}}>
+              onMouseEnter={e=>{e.currentTarget.style.boxShadow=`0 14px 40px rgba(0,0,0,0.24)`;e.currentTarget.style.borderColor=`${p.accent}40`}}
+              onMouseLeave={e=>{e.currentTarget.style.boxShadow="";e.currentTarget.style.borderColor="var(--border)"}}>
                 {/* Top accent stripe */}
                 <div style={{ position:"absolute",top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,${p.accent},${p.accent}00)` }} />
                 {/* Glow in corner */}
@@ -548,7 +552,7 @@ export default function DelphiLabs() {
             <div className="form-2" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:16 }}>
               {[["Full Name","name","text","Your full name"],["Email Address","email","email","you@email.com"]].map(([l,k,t,ph]) => (
                 <div key={k}>
-                  <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"rgba(148,163,184,0.7)",display:"block",marginBottom:9 }}>{l}</label>
+                  <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--muted)",display:"block",marginBottom:9 }}>{l}</label>
                   <input className="field" type={t} placeholder={ph} value={form[k]} onChange={setF(k)} />
                 </div>
               ))}
@@ -556,13 +560,13 @@ export default function DelphiLabs() {
             <div className="form-2" style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:16 }}>
               {[["Organisation","org","text","College / Company"],["Phone","phone","tel","+91 98765 43210"]].map(([l,k,t,ph]) => (
                 <div key={k}>
-                  <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"rgba(148,163,184,0.7)",display:"block",marginBottom:9 }}>{l}</label>
+                  <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--muted)",display:"block",marginBottom:9 }}>{l}</label>
                   <input className="field" type={t} placeholder={ph} value={form[k]} onChange={setF(k)} />
                 </div>
               ))}
             </div>
             <div style={{ marginBottom:26 }}>
-              <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"rgba(148,163,184,0.7)",display:"block",marginBottom:9 }}>Message</label>
+              <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--muted)",display:"block",marginBottom:9 }}>Message</label>
               <textarea className="field" rows={5} placeholder="Tell us about your requirements, institution, or the program you're interested in…" value={form.message} onChange={setF("message")} style={{ resize:"vertical" }} />
             </div>
             <button className="btn btn-p" style={{ width:"100%",justifyContent:"center",fontSize:15,padding:"16px" }}>
@@ -572,50 +576,7 @@ export default function DelphiLabs() {
         </div>
       </section>
 
-      {/* ═══════ FOOTER ═══════ */}
-      <footer style={{ borderTop:"1px solid rgba(59,130,246,0.1)",padding:"64px 32px 36px",position:"relative" }}>
-        <div style={{ position:"absolute",top:0,left:"30%",right:"30%",height:1,background:"linear-gradient(90deg,transparent,rgba(96,165,250,0.25),transparent)" }} />
-        <div style={{ maxWidth:1240,margin:"0 auto" }}>
-          <div className="foot-grid" style={{ display:"grid",gridTemplateColumns:"2fr 1fr 1fr",gap:52,marginBottom:52 }}>
-            <div>
-              <div style={{ display:"flex",alignItems:"center",gap:11,marginBottom:18 }}>
-                <div style={{ width:36,height:36,borderRadius:10,background:"linear-gradient(135deg,#2563EB,#60A5FA)",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:16,boxShadow:"0 0 16px rgba(37,99,235,0.4)" }}>D</div>
-                <span style={{ fontWeight:800,fontSize:15,letterSpacing:"-0.025em" }}>DELPHI<span style={{ color:"#60A5FA" }}>.</span>LABS</span>
-              </div>
-              <p style={{ fontSize:14,color:"var(--muted)",lineHeight:1.7,maxWidth:290,marginBottom:24 }}>Building Industry-Ready Professionals through AI, Robotics, and Skill Development.</p>
-              <div style={{ display:"flex",gap:10 }}>
-                {[["LinkedIn",Ico.li],["Instagram",Ico.ig],["YouTube",Ico.yt]].map(([n,ic]) => (
-                  <a key={n} href="#" style={{ width:38,height:38,borderRadius:10,background:"rgba(59,130,246,0.08)",border:"1px solid rgba(59,130,246,0.18)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--muted)",textDecoration:"none",transition:"all .2s" }}
-                    onMouseEnter={e=>{ e.currentTarget.style.background="rgba(37,99,235,0.2)";e.currentTarget.style.color=`#93C5FD`;e.currentTarget.style.borderColor="rgba(96,165,250,0.4)" }}
-                    onMouseLeave={e=>{ e.currentTarget.style.background="rgba(59,130,246,0.08)";e.currentTarget.style.color="var(--muted)";e.currentTarget.style.borderColor="rgba(59,130,246,0.18)" }}>
-                    {ic}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(148,163,184,0.5)",marginBottom:18 }}>Quick Links</div>
-              {[["Home","hero"],["Programs","programs"],["For Colleges","colleges"],["About","about"],["Contact","contact"]].map(([l,id]) => (
-                <div key={id} style={{ marginBottom:12 }}>
-                  <a className="nav-link" style={{ fontSize:14 }} onClick={() => go(id)}>{l}</a>
-                </div>
-              ))}
-            </div>
-            <div>
-              <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(148,163,184,0.5)",marginBottom:18 }}>Programs</div>
-              {["AI & Machine Learning","Robotics & IoT","Soft Skills","Aptitude Training","Career Development"].map(p => (
-                <div key={p} style={{ marginBottom:12 }}>
-                  <a className="nav-link" style={{ fontSize:14 }} onClick={() => go("programs")}>{p}</a>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={{ borderTop:"1px solid rgba(59,130,246,0.1)",paddingTop:24,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10 }}>
-            <span style={{ fontSize:13,color:"rgba(148,163,184,0.35)" }}>© 2025 Delphi Labs. All rights reserved.</span>
-            <span style={{ fontSize:13,color:"rgba(148,163,184,0.35)" }}>Building the workforce of tomorrow, today.</span>
-          </div>
-        </div>
-      </footer>
+      
     </>
   );
 }

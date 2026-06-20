@@ -64,7 +64,7 @@ export default function Programs() {
                 <h3 className="font-medium mb-2 leading-snug">{p.title}</h3>
                 <p className="text-sm text-gray-500 mb-4 line-clamp-2">{p.description}</p>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-gray-400">⏱ {p.duration}</span>
+                  <span className="text-gray-400">Duration: {p.duration}</span>
                   <span className="font-semibold text-brand-600">₹{p.price.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex flex-wrap gap-1 mt-3">

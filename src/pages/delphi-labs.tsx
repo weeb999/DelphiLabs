@@ -10,7 +10,9 @@ export default function DelphiLabsPage() {
         <title>Delphi Labs</title>
         <meta name="description" content="Delphi Labs — workshops and training" />
       </Head>
-      <DelphiLabsComp />
+          <div style={{ color: '#fff' }}>
+            <DelphiLabsComp />
+          </div>
     </>
   )
 }

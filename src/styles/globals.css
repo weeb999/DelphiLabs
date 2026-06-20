@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  :root{
+    --text: #0f172a;
+    --bg: #ffffff;
+  }
   html {
     scroll-behavior: smooth;
   }
@@ -12,7 +16,8 @@
                       radial-gradient(circle at 85% 30%, rgba(55, 138, 221, 0.12) 0%, transparent 50%),
                       radial-gradient(circle at 50% 100%, rgba(55, 138, 221, 0.05) 0%, transparent 50%);
     background-attachment: fixed;
-    color: #0f172a;
+    color: var(--text);
+    background-color: var(--bg);
   }
   ::selection {
     background-color: #378add;
@@ -31,3 +36,27 @@
     overflow: hidden;
   }
 }
+
+/* Delphi Labs dark wrapper: force readable white text and variables for the hero page */
+.delphi-dark {
+  --surface: #0b1220;
+  --card: #0f1724;
+  --blue: #0f172a;
+  --blue-bright: #1e3a8a;
+  --muted: rgba(255,255,255,0.96);
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
+  --sky: #60A5FA;
+  color: var(--muted);
+  background-color: var(--surface);
+}
+.delphi-dark .text-slate-900,
+.delphi-dark .text-slate-800,
+.delphi-dark .text-slate-700,
+.delphi-dark .text-slate-600,
+.delphi-dark .text-black {
+  color: var(--muted) !important;
+}
+.delphi-dark a { color: inherit !important; }
+.delphi-dark .bg-white, .delphi-dark .bg-white\/60, .delphi-dark .bg-white\/80 { background-color: transparent !important; }
+

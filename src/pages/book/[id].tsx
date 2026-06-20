@@ -88,10 +88,10 @@ export default function BookProgram() {
     setLoading(false)
   }
 
-  if (booked) return (
+    if (booked) return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="text-5xl mb-4">✓</div>
         <h2 className="text-2xl font-semibold mb-2">Booking confirmed!</h2>
         <p className="text-gray-500 mb-6">Our team will reach out within 24 hours with next steps.</p>
         <Link href="/dashboard" className="bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-800 transition-colors">
@@ -115,9 +115,9 @@ export default function BookProgram() {
             <div className="text-xs text-brand-600 font-medium uppercase tracking-wider mb-1">{program.type}</div>
             <h2 className="font-semibold text-lg mb-1">{program.title}</h2>
             <div className="text-sm text-gray-500 flex gap-4">
-              <span>⏱ {program.duration}</span>
-              <span>🖥 {program.mode}</span>
-              <span>💺 Max {program.max_seats} seats</span>
+              <span>Duration: {program.duration}</span>
+              <span>Mode: {program.mode}</span>
+              <span>Max {program.max_seats} seats</span>
             </div>
           </div>
         )}
