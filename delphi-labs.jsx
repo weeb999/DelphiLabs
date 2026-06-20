@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from 'next/image'
-import logo from './Logo delphi PNG.png'
+import logo from './Logo Delphi.png'
 
 /* ════════════════════════════════════════
    NEURAL CANVAS — hero background
@@ -250,7 +250,7 @@ export default function DelphiLabs() {
           {/* Logo */}
           <div style={{ display:"flex",alignItems:"center",gap:11,cursor:"pointer" }} onClick={() => go("hero")}>
             <div style={{ width:36,height:36,borderRadius:10,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 20px rgba(15,23,42,0.12)", background: 'transparent' }}>
-              <Image src={logo} alt="Delphi Labs" width={36} height={36} style={{ objectFit: 'cover', transform: 'scale(1.12)' }} />
+              <Image src={logo} alt="Delphi Labs" width={36} height={36} style={{ objectFit: 'cover', transform: 'scale(1.4)' }} priority />
             </div>
             <span style={{ fontWeight:800,fontSize:15,letterSpacing:"-0.025em" }}>DELPHI<span style={{ color:"var(--blue-bright)" }}>.</span>LABS</span>
           </div>
@@ -322,8 +322,8 @@ export default function DelphiLabs() {
               { v:"Career",   l:"Focused Programs" },
             ].map((s,i) => (
               <div key={i} className="glass" style={{ borderRadius:16,padding:"22px 24px",textAlign:"center",borderColor:"var(--border)" }}>
-                <div style={{ fontSize:26,fontWeight:900,letterSpacing:"-0.04em",marginBottom:6 }} className="gt-blue">{s.v}</div>
-                <div style={{ fontSize:12,color:"var(--muted)",fontWeight:500,letterSpacing:"0.01em" }}>{s.l}</div>
+                <div style={{ fontSize:24,fontWeight:700,letterSpacing:"-0.02em",marginBottom:6,color:"#fff",fontFamily:"Inter, sans-serif" }}>{s.v}</div>
+                <div style={{ fontSize:12,color:"#fff",fontWeight:600,letterSpacing:"0.01em",textTransform:"none" }}>{s.l}</div>
               </div>
             ))}
           </div>
@@ -569,14 +569,55 @@ export default function DelphiLabs() {
               <label style={{ fontSize:12,fontWeight:700,letterSpacing:"0.04em",textTransform:"uppercase",color:"var(--muted)",display:"block",marginBottom:9 }}>Message</label>
               <textarea className="field" rows={5} placeholder="Tell us about your requirements, institution, or the program you're interested in…" value={form.message} onChange={setF("message")} style={{ resize:"vertical" }} />
             </div>
-            <button className="btn btn-p" style={{ width:"100%",justifyContent:"center",fontSize:15,padding:"16px" }}>
+            <div id="contact-result" style={{ marginBottom:16 }} />
+            <button onClick={async () => {
+              const btn = document.activeElement
+              try {
+                const resp = await fetch('/api/contact', { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(form) })
+                const data = await resp.json()
+                if (resp.ok) {
+                  document.getElementById('contact-result').innerHTML = '<div style="color:#10b981;padding:14px;background:rgba(16,185,129,0.1);border-radius:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);font-weight:500;">Mail is delivered successfully</div>'
+                  setForm({ name:'', email:'', org:'', phone:'', message:'' })
+                } else {
+                  throw new Error(data.error || 'Failed to send')
+                }
+              } catch (e) {
+                // Fallback to mailto if API fails
+                window.location.href = `mailto:contact@delphilabs.in?subject=Contact Request from ${form.name}&body=Name: ${form.name}%0AEmail: ${form.email}%0AOrg: ${form.org}%0APhone: ${form.phone}%0A%0AMessage:%0A${form.message}`;
+                document.getElementById('contact-result').innerHTML = '<div style="color:#10b981;padding:14px;background:rgba(16,185,129,0.1);border-radius:10px;text-align:center;border:1px solid rgba(16,185,129,0.2);font-weight:500;">Mail is delivered successfully via email client</div>'
+                setForm({ name:'', email:'', org:'', phone:'', message:'' })
+              } finally {
+                try { if (btn && typeof (btn.blur) === 'function') btn.blur(); } catch(e) { /* ignore */ }
+              }
+            }} className="btn btn-p" style={{ width:"100%",justifyContent:"center",fontSize:15,padding:"16px" }}>
               Get In Touch {Ico.arrow}
             </button>
           </div>
         </div>
       </section>
 
-      
+      {/* ═══════ FOOTER ═══════ */}
+      <footer style={{ padding:"50px 32px", borderTop:"1px solid rgba(255,255,255,0.06)", textAlign:"center", background:"rgba(6,13,31,0.5)" }}>
+        <div style={{ display:"flex", justifyContent:"center", gap:24, marginBottom:24 }}>
+          <a href="https://www.instagram.com/delphilabs.in/" target="_blank" rel="noopener noreferrer" style={{ color:"var(--muted)", transition:"color .3s" }} onMouseOver={e => e.currentTarget.style.color="#fff"} onMouseOut={e => e.currentTarget.style.color="var(--muted)"}>
+            {Ico.ig}
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color:"var(--muted)", transition:"color .3s" }} onMouseOver={e => e.currentTarget.style.color="#fff"} onMouseOut={e => e.currentTarget.style.color="var(--muted)"}>
+            {Ico.li}
+          </a>
+        </div>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:11, marginBottom:16 }}>
+          <div style={{ width:24,height:24,borderRadius:6,overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 0 10px rgba(15,23,42,0.12)" }}>
+            <Image src={logo} alt="Delphi Labs" width={24} height={24} style={{ objectFit: 'cover', transform: 'scale(1.4)' }} />
+          </div>
+          <span style={{ fontWeight:800,fontSize:14,letterSpacing:"-0.025em" }}>DELPHI<span style={{ color:"var(--blue-bright)" }}>.</span>LABS</span>
+        </div>
+        <p style={{ color:"var(--muted)", fontSize:14, marginBottom:16 }}>© 2026 Delphi Labs. All rights reserved.</p>
+        <div style={{ fontSize:13 }}>
+          <a href="/terms" style={{ color:"var(--muted)", marginRight:20, textDecoration:"none", transition:"color .2s" }} onMouseOver={e => e.currentTarget.style.color="#fff"} onMouseOut={e => e.currentTarget.style.color="var(--muted)"}>Terms of Service</a>
+          <a href="/privacy" style={{ color:"var(--muted)", textDecoration:"none", transition:"color .2s" }} onMouseOver={e => e.currentTarget.style.color="#fff"} onMouseOut={e => e.currentTarget.style.color="var(--muted)"}>Privacy Policy</a>
+        </div>
+      </footer>
     </>
   );
 }

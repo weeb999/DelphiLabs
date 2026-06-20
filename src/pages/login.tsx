@@ -51,6 +51,7 @@ export default function Login() {
               <div>
                 <label className="block text-sm font-medium mb-1">Full name</label>
                 <input required value={name} onChange={e => setName(e.target.value)}
+                  autoComplete="name"
                   className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-200"
                   placeholder="Dr. Rajesh Kumar" />
               </div>
@@ -58,12 +59,14 @@ export default function Login() {
             <div>
               <label className="block text-sm font-medium mb-1">Email</label>
               <input required type="email" value={email} onChange={e => setEmail(e.target.value)}
+                autoComplete="email"
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-200"
                 placeholder="you@institution.edu" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Password</label>
               <input required type="password" value={password} onChange={e => setPassword(e.target.value)}
+                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
                 className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-200"
                 placeholder="••••••••" />
             </div>
